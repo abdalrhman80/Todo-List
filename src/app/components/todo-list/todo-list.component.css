@@ -109,9 +109,10 @@
     box-shadow: none;
 }
 
+.ToDoList-footer span,
 .fa-trash-alt,
 .fa-pen-to-square {
-    transition: color .2s;
+    transition: color .3s;
 }
 
 .fa-trash-alt:hover {
