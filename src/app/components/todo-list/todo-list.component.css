@@ -1,0 +1,169 @@
+.gray-color {
+    color: var(--Dark_Grayish_Blue);
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--Very_Dark_Grayish_Blue) !important;
+}
+
+.ToDo {
+    background-image: var(--dark-bg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 40vh;
+}
+
+.custom-container {
+    margin: 0 auto;
+    max-width: 540px;
+    padding: 48px 25px;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+}
+
+.header_title h1 {
+    letter-spacing: 10px;
+    font-weight: 700;
+    font-size: 28px !important;
+    color: rgb(243, 243, 243);
+}
+
+.form-control {
+    background-color: var(--Very_Dark_Desaturated_Blue);
+    color: var(--Light_Grayish_Blue);
+    border-color: var(--Very_Dark_Desaturated_Blue);
+    padding: 12px;
+    height: 50px;
+    font-size: var(--mainFont);
+    transition: none;
+}
+
+.form-control:focus {
+    background-color: var(--Very_Dark_Desaturated_Blue);
+    color: var(--Light_Grayish_Blue);
+    border-color: var(--Very_Dark_Desaturated_Blue);
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+    color: var(--Dark_Grayish_Blue);
+    font-size: inherit;
+}
+
+.input-group-text {
+    background-color: var(--Very_Dark_Blue);
+    color: var(--Dark_Grayish_Blue);
+    border-color: var(--Very_Dark_Desaturated_Blue);
+}
+
+.ToDoList {
+    background-color: var(--Very_Dark_Desaturated_Blue);
+    color: var(--Light_Grayish_Blue);
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 1.25em;
+    background-color: var(--Very_Dark_Desaturated_Blue);
+    position: relative;
+    display: inline-block;
+}
+
+.form-check-input[type=checkbox]::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    z-index: 5;
+    background: var(--Very_Dark_Grayish_Blue);
+}
+
+.form-check-input[type=checkbox]::after {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    z-index: 10;
+    background-color: var(--Very_Dark_Desaturated_Blue);
+}
+
+.form-check-input[type=checkbox]:hover::before {
+    background-image: linear-gradient(var(--Check_Background_firstColor), var(--Check_Background_SecondColor));
+}
+
+.form-check-input[type=checkbox]:checked::after {
+    background: no-repeat url("../../../assets/images/icon-check.svg") center / 60%, linear-gradient(to bottom, #57ddff, #c058f3);
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+}
+
+.fa-trash-alt,
+.fa-pen-to-square {
+    transition: color .2s;
+}
+
+.fa-trash-alt:hover {
+    color: rgb(220, 53, 69)
+}
+
+.fa-pen-to-square:hover {
+    color: rgb(255, 193, 7)
+}
+
+.footer {
+    background-color: var(--Very_Dark_Desaturated_Blue);
+}
+
+.footer a {
+    text-decoration: none;
+    color: var(--Dark_Grayish_Blue);
+    transition: color .3s;
+}
+
+.ToDoList .All-Completed:hover,
+.footer a:hover {
+    color: var(--Light_Grayish_Blue);
+}
+
+.custom-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 555;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-modal>div {
+    width: 540px;
+    background-color: var(--Very_Dark_Desaturated_Blue);
+}
+
+.custom-modal h5 {
+    color: var(--Light_Grayish_Blue);
+}
+
+.button-close {
+    color: var(--Dark_Grayish_Blue);
+    border: none;
+}
+
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    color: var(--Dark_Grayish_Blue);
+}

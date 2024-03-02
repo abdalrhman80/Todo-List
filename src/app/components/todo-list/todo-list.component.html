@@ -1,0 +1,134 @@
+<div class="ToDo">
+    <div class="custom-container">
+
+        <div class="header d-flex justify-content-center flex-column ">
+            <div class="header_title d-flex justify-content-between">
+                <h1 class="text-white">TODO</h1>
+                <i class="fa-regular fa-sun fs-3 text-white cursor-pointer" (click)="changeTheme($event)"></i>
+            </div>
+
+            <form [formGroup]="TodoForm" (ngSubmit)="addTodo(TodoForm)">
+                <div class="input-group my-4">
+                    <input formControlName="title" type="text" class="form-control" placeholder="Create a new todo..">
+                    <span class="input-group-text cursor-pointer" (click)="addTodo(TodoForm)">ADD</span>
+                </div>
+            </form>
+        </div>
+
+        <div class="ToDoList rounded shadow-lg">
+
+            <div *ngIf="!isLoading" class="overflow-hidden">
+                <div *ngIf="allFlag">
+                    <p class="border-bottom text-center mb-0 p-3" *ngIf="TodoList.length == 0">Tasks list is empty !</p>
+                    <div *ngFor="let TodoItem of TodoList" class="ToDoList-item p-3 border-bottom row ">
+                        <div class=" col-sm-6 ">
+                            <div class="form-check" *ngIf="!completedTodoSID.includes(TodoItem._id)">
+                                <input type="checkbox" class="form-check-input cursor-pointer"
+                                    (click)="markCompletedTodo(TodoItem._id)"
+                                    [checked]="completedTodoSID.includes(TodoItem._id)">
+                                <p class="mb-0 form-check-label">{{TodoItem.title}}</p>
+                            </div>
+                            <!-- <div class="form-check" *ngIf="completedTodoSID.includes(TodoItem._id)">
+                                <input type="checkbox" class="form-check-input cursor-pointer"
+                                    (click)="markCompletedTodo(TodoItem._id)"
+                                    [checked]="completedTodoSID.includes(TodoItem._id)">
+                                <p class="mb-0 form-check-label gray-color"><del>{{TodoItem.title}}</del></p>
+                            </div> -->
+                            <del class="form-check-label gray-color" *ngIf="completedTodoSID.includes(TodoItem._id)">
+                                {{TodoItem.title}}
+                            </del>
+                        </div>
+                        <div class=" col-sm-6 ">
+                            <div class="d-flex justify-content-end">
+                                <i class="fa-solid fa-pen-to-square gray-color cursor-pointer me-2"
+                                    (click)="showModel(TodoItem._id)"></i>
+                                <i class="fa-solid fa-trash-alt gray-color cursor-pointer ms-1"
+                                    (click)="deleteTodo(TodoItem._id)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="activeFlag">
+                    <p class="border-bottom text-center mb-0 p-3" *ngIf="activeTodos.length == 0">Noting to do !</p>
+                    <div *ngFor="let TodoItem of activeTodos"
+                        class="ToDoList-item p-3 border-bottom d-flex justify-content-between row">
+                        <div class=" col-sm-6 ">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input cursor-pointer"
+                                    (click)="markCompletedTodo(TodoItem._id)"
+                                    [checked]="completedTodoSID.includes(TodoItem._id)">
+                                <p class="mb-0 form-check-label">{{TodoItem.title}}</p>
+                            </div>
+                        </div>
+                        <div class=" col-sm-6 ">
+                            <div class="d-flex justify-content-end">
+                                <i class="fa-solid fa-pen-to-square gray-color cursor-pointer me-2"
+                                    (click)="showModel(TodoItem._id)"></i>
+                                <i class="fa-solid fa-trash-alt gray-color cursor-pointer ms-1"
+                                    (click)="deleteTodo(TodoItem._id)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="completedFlag">
+                    <p class="border-bottom text-center mb-0 p-3" *ngIf="completedTodoS.length == 0">Noting Completed !
+                    </p>
+                    <div *ngFor="let TodoItem of completedTodoS; index as i"
+                        class="ToDoList-item p-3 border-bottom d-flex justify-content-between row">
+                        <div class=" col-sm-6 ">
+                            <del class="form-check-label gray-color">
+                                {{TodoItem.title}}
+                            </del>
+                        </div>
+                        <div class=" col-sm-6 ">
+                            <div class="d-flex justify-content-end">
+                                <i class="fa-solid fa-pen-to-square gray-color cursor-pointer me-2"
+                                    (click)="showModel(TodoItem._id)"></i>
+                                <i class="fa-solid fa-trash-alt gray-color cursor-pointer ms-1"
+                                    (click)="deleteTodo(TodoItem._id)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ToDoList-footer p-3 d-flex justify-content-between gray-color">
+                    <span>{{TodosNum}} items left</span>
+                    <span class="cursor-pointer All-Completed" (click)="clearCompleted()">Clear Completed</span>
+                </div>
+            </div>
+
+            <div *ngIf="isLoading" class="d-flex justify-content-center p-3">
+                <div class="spinner-border gray-color " role="status"></div>
+            </div>
+        </div>
+
+        <div class="footer mt-4 rounded d-flex justify-content-center p-3">
+            <a [class]="allFlag?'cursor-pointer text-primary pe-2':'cursor-pointer  pe-2'" (click)="showAll()">All</a>
+            <a [class]="activeFlag?'cursor-pointer text-primary px-2':'cursor-pointer  px-2'"
+                (click)="showActive()">Active</a>
+            <a [class]="completedFlag?'cursor-pointer text-primary ps-2':'cursor-pointer  ps-2'"
+                class=" cursor-pointer " (click)="showCompleted()">Completed</a>
+        </div>
+    </div>
+</div>
+
+<div #customModal class="d-none custom-modal shadow-lg p-3">
+    <div class="rounded p-2 ">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="  mt-2">Update Todo</h5>
+            <button type="button" class="btn  button-close mt-1" (click)="closeModel()" (keypress)="closeModel()">
+                <i class="fa-solid fa-x fs-5 "></i>
+            </button>
+        </div>
+        <form [formGroup]="UpdateTodoForm" (ngSubmit)="updateTodo(UpdateTodoForm)">
+            <div class="input-group my-3">
+                <input formControlName="title" type="text" class="form-control" placeholder="New todo.."
+                    style=" background-color:var(--Very_Dark_Blue);">
+            </div>
+            <button type="button" class=" input-group-text cursor-pointer d-block ms-auto text-uppercase"
+                (click)="updateTodo(UpdateTodoForm)">Update</button>
+        </form>
+    </div>
+</div>
